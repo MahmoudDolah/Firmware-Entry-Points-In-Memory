@@ -27,7 +27,7 @@ https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-cost
 [9] https://sviehb.wordpress.com/2011/09/06/reverse-engineering-an-obfuscated-firmware-image-e01-unpacking/
 
 [10] When Firmware Modifications Attack: A Case Study of Embedded Exploitation
-http://blog.narotama.ac.id/wp-content/uploads/2014/12When-Firmware-Modifications-Attack-A-Case-Study-of-Embedded-Exploitation.pdf
+http://blog.narotama.ac.id/wp-content/uploads/2014/12/When-Firmware-Modifications-Attack-A-Case-Study-of-Embedded-Exploitation.pdf
 
 [11] Analysis of programmable logic controller firmware for threat assessment and forensic investigation
 https://books.google.com/books?hl=en&lr=&id=s7kVBAAAQBAJ&oi=fnd&pg=PA9&dq=firmware+header&ots=kUzInk-KsR&sig=mTGgWzNXX--UWTt4dULFxRFng8U#v=onepage&q&f=false
