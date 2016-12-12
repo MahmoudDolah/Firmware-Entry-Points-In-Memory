@@ -1,0 +1,49 @@
+\documentclass[12pt]{article}
+\usepackage{natbib}
+
+\title{Firmware Entry Points in Memory}
+\author{Mahmoud Dolah and Rafael De Los Santo}
+\date{November 20th, 2016}
+
+\begin{document}
+\maketitle
+
+\section{Abstract}
+
+\section{Introduction}
+
+\section{Related Work}
+Firmware entry point analysis can be considered one of the many steps in the overall study of embedded systems. As more and more objects are entering the realm of IOT and incorporate embedded systems of their own, the discussion of firmware analysis is already growing to include a wide variety of new topics. 
+
+Meier et al\cite{fitnesstrackers2016}, Coppola\cite{cloudscale2013}, and Zaddach and Costello\cite{securityfirmwarereverse2013} touch upon the general idea of manually analyzing disassembled firmware images, mainly to extract information from headers and also for use in emulation. Manual analysis is, however, time consuming, considering the amount of information one needs to gather before they may begin to inspect actual code (which will be done with a tool such as IDA Pro). 
+
+Because of this, many tools have been developed to automate or at least assist in much of the analysis. Zaddach et al\cite{avatar} and Costin et al\cite{dynamicanalysisatscale2015} take the dynamic analysis approach, and run a given firmware image within an emulator. Costin et al\cite{dynamicanalysisatscale2015} is of particular interest because its emulation process includes a partial emulation of the underlying hardware, meaning of course that only firmware for known hardware devices can be tested.
+
+This lack of environmental knowledge (and often physical hardware) prompts many static approaches, such as Shoshitaishvili et al\cite{firmalice2015}, which builds off of techniques in Kruegel et al\cite{staticdisassembly2002} to reverse engineer firmware when only a binary-blob is present. This brand of analysis is especially useful, considering firmware entry point detection is usually a step in the process. 
+
+Similar efforts and challenges in static analysis are seen in Costin et al\cite{analysisofembeddedfirmware2014}, but on a much larger scale. Tens of thousands of images we’re unpacked, requiring the analysis to be general enough for a large range of binaries. The results were compared to the popular firmware analysis tool, Binwalk\cite{binwalk}, which is often used in manual static analysis. Heffner\cite{binwalk} uses known patterns to locate structures within executables, and can be particularly useful for locating firmware headers.
+
+Heffner\cite{wrt120N2014} and Viehbock\cite{braindump2011} show examples of static analysis on firmware using Heffner\cite{binwalk} as well as other useful techniques for reverse engineering embedded systems.
+
+Other techniques have been developed to target specific device vulnerabilities, rather than overarching analyses of firmware images. Meier\cite{fitnesstrackers2016} and Cui et al\cite{firmwaremodsattack} focus on the exploitation of firmware updates to deliver malicious code (to fitness trackers and HP printers, respectively), and note a general lacking in the current state of firmware security. Similarly, FIE\cite{fie2013} is a tool developed to find bugs in the MSP430 family of micro controllers, building off of Cadar et al\cite{klee2008} for the purposes of conducting symbolic execution. While these analyses are limited in scope, they all shed light into interesting ways of inspecting firmware that can potentially be applied to a greater and more general range of devices. 
+
+\section{Background}
+OPTIONAL
+
+\section{Design}
+
+\section{Implementation}
+
+\section{Evaluation}
+
+\section{Discussion}
+OPTIONAL
+Place to explain if there is something weird about the result
+
+\section{Limitations and Future Work}
+
+\section{Conclusion}
+
+\bibliographystyle{abbrv}
+\bibliography{research}
+\end{document}
