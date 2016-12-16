@@ -1,0 +1,391 @@
+Package: kmod-ath9k-common
+Version: 4.4.14+2016-05-12-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-ath
+Source: package/kernel/mac80211
+Section: kernel
+Maintainer: Felix Fietkau <nbd@nbd.name>
+Architecture: ar71xx
+Installed-Size: 127160
+Filename: kmod-ath9k-common_4.4.14+2016-05-12-1_ar71xx.ipk
+Size: 124331
+MD5Sum: 842882194d93eea529d19e5501e09157
+SHA256sum: b551270d84a4aff28fd37ae97e7575ce40289a0210f0586704f74c34248e4016
+Description:  Atheros 802.11n wireless devices (common code for ath9k and ath9k_htc)
+
+Package: kmod-ath9k
+Version: 4.4.14+2016-05-12-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-ath9k-common
+Source: package/kernel/mac80211
+Section: kernel
+Maintainer: Felix Fietkau <nbd@nbd.name>
+Architecture: ar71xx
+Installed-Size: 57030
+Filename: kmod-ath9k_4.4.14+2016-05-12-1_ar71xx.ipk
+Size: 57516
+MD5Sum: 5bdd1d4b9ecaf75d55c8838494fd7f6a
+SHA256sum: 2274e361b56d51f1a3b3b9691ca63eba9baeddca87f4d63ea506fbdbcc53a422
+Description:  This module adds support for wireless adapters based on
+ Atheros IEEE 802.11n AR5008 and AR9001 family of chipsets.
+
+Package: kmod-ath
+Version: 4.4.14+2016-05-12-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-mac80211
+Source: package/kernel/mac80211
+Section: kernel
+Maintainer: Felix Fietkau <nbd@nbd.name>
+Architecture: ar71xx
+Installed-Size: 12477
+Filename: kmod-ath_4.4.14+2016-05-12-1_ar71xx.ipk
+Size: 13007
+MD5Sum: edb9a28a8535d028a3bcb98f3fd62ff4
+SHA256sum: 6368678ac769218a2670b130b7cbea7014489a456e0b8c7b3d3d4a27e132bc9d
+Description:  This module contains some common parts needed by Atheros Wireless drivers.
+
+Package: kmod-cfg80211
+Version: 4.4.14+2016-05-12-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), iw
+Source: package/kernel/mac80211
+Section: kernel
+Maintainer: Felix Fietkau <nbd@nbd.name>
+Architecture: ar71xx
+Installed-Size: 123910
+Filename: kmod-cfg80211_4.4.14+2016-05-12-1_ar71xx.ipk
+Size: 124207
+MD5Sum: ceb95755ca2ac2e6db3d2f039a3bed9d
+SHA256sum: 5248e74271939cd4ad3549c168bbaafb0ed5ac6145c8183bf06f8c95a22fe793
+Description:  cfg80211 is the Linux wireless LAN (802.11) configuration API.
+
+Package: kmod-gpio-button-hotplug
+Version: 4.4.14-2
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc)
+Source: package/kernel/gpio-button-hotplug
+Section: kernel
+Architecture: ar71xx
+Installed-Size: 5156
+Filename: kmod-gpio-button-hotplug_4.4.14-2_ar71xx.ipk
+Size: 6080
+MD5Sum: 53f64b2d4adeed01c63342e14eee19e8
+SHA256sum: 7f663691c4f83edf1d9029e3b03b014ad282109435b34e4919e17a2feab2e5ad
+Description:  This is a replacement for the following in-kernel drivers:
+ 1) gpio_keys (KEYBOARD_GPIO)
+ 2) gpio_keys_polled (KEYBOARD_GPIO_POLLED)
+ 
+ Instead of generating input events (like in-kernel drivers do) it generates
+ uevent-s and broadcasts them. This allows disabling input subsystem which is
+ an overkill for OpenWrt simple needs.
+
+Package: kmod-ip6tables
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-nf-ipt6, kmod-ipt-core, kmod-ipt-conntrack
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 8096
+Filename: kmod-ip6tables_4.4.14-1_ar71xx.ipk
+Size: 8920
+MD5Sum: ec19d9dae81ca93ca00041c7dfa8a7e9
+SHA256sum: 9571f58a51b416c0a6d2f45d0e86a59a68cf67909520a3818101810911d11fd0
+Description:  Netfilter IPv6 firewalling support
+
+Package: kmod-ipt-conntrack
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-ipt-core, kmod-nf-conntrack
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 4699
+Filename: kmod-ipt-conntrack_4.4.14-1_ar71xx.ipk
+Size: 5535
+MD5Sum: 3f3eed469f92a1401d2ca08a80c2074e
+SHA256sum: 8d976491889a68172fcca2a9e833de76ef2d3247cc903a57eec115dd8221d0af
+Description:  Netfilter (IPv4) kernel modules for connection tracking
+ Includes:
+ - conntrack
+ - defrag
+ - iptables_raw
+ - NOTRACK
+ - state
+
+Package: kmod-ipt-core
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-nf-ipt
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 15830
+Filename: kmod-ipt-core_4.4.14-1_ar71xx.ipk
+Size: 16714
+MD5Sum: 55474ade1ad5fd56c6cac04ffad9de47
+SHA256sum: 3c7c5c1e38ad5ba20fb19f2275d960f9d158cf78247530d0ab141e763743a104
+Description:  Netfilter core kernel modules
+ Includes:
+ - comment
+ - limit
+ - LOG
+ - mac
+ - multiport
+ - REJECT
+ - TCPMSS
+
+Package: kmod-ipt-nat
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-ipt-core, kmod-nf-nat
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 3880
+Filename: kmod-ipt-nat_4.4.14-1_ar71xx.ipk
+Size: 4730
+MD5Sum: 75fb0c656aaaf82519b40d93c4913125
+SHA256sum: 7042bb04110c798d42654b25f36de3e93fdbdf0d712377fdc605b39a4834904c
+Description:  Netfilter (IPv4) kernel modules for basic NAT targets
+ Includes:
+ - MASQUERADE
+
+Package: kmod-ledtrig-usbdev
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-usb-core
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 2083
+Filename: kmod-ledtrig-usbdev_4.4.14-1_ar71xx.ipk
+Size: 2927
+MD5Sum: 9cf226b41eb8b0128339fed9dcc04c8c
+SHA256sum: ca495b6f47a46277500a46870c5e1f8b148ab4ab9b2dfa91dd8c703eb825773a
+Description:  Kernel module to drive LEDs based on USB device presence/activity
+
+Package: kmod-lib-crc-ccitt
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc)
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 1306
+Filename: kmod-lib-crc-ccitt_4.4.14-1_ar71xx.ipk
+Size: 2111
+MD5Sum: f695b4795424933bf0d46744712473c2
+SHA256sum: ad306c6b675a5f81e4b84f7e566fead8804662084d6d5b57e2e0ec1b3fe7814b
+Description:  Kernel module for CRC-CCITT support
+
+Package: kmod-mac80211
+Version: 4.4.14+2016-05-12-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-cfg80211, hostapd-common
+Source: package/kernel/mac80211
+Section: kernel
+Maintainer: Felix Fietkau <nbd@nbd.name>
+Architecture: ar71xx
+Installed-Size: 231786
+Filename: kmod-mac80211_4.4.14+2016-05-12-1_ar71xx.ipk
+Size: 231116
+MD5Sum: 346c3cd67e6f9473d3ebd0477b88371e
+SHA256sum: cc579f3bc578fab9a05213116ffa277820404fb3c0ac42dcf276dbbe4e29ad50
+Description:  Generic IEEE 802.11 Networking Stack (mac80211)
+
+Package: kmod-nf-conntrack6
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-nf-conntrack
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 8968
+Filename: kmod-nf-conntrack6_4.4.14-1_ar71xx.ipk
+Size: 9790
+MD5Sum: cc39a4d34a8b73e802f257c15bb6f88b
+SHA256sum: b222425c0767c2a50e44a42f5788af09723d72fac230223d68bb022c9e1ee5e5
+Description:  Netfilter IPv6 connection tracking
+
+Package: kmod-nf-conntrack
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc)
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 37099
+Filename: kmod-nf-conntrack_4.4.14-1_ar71xx.ipk
+Size: 37941
+MD5Sum: 295f2336abe0e2412a21d4dcd559223d
+SHA256sum: 94605dba1182325df81b4366db315aa7cc6fd27d408113aa7c427a2eeaf87926
+Description:  Netfilter connection tracking
+
+Package: kmod-nf-ipt6
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-nf-ipt, kmod-nf-conntrack6
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 7351
+Filename: kmod-nf-ipt6_4.4.14-1_ar71xx.ipk
+Size: 8189
+MD5Sum: 068c55df1936a303d3d6ace3a3f93e5e
+SHA256sum: a054d25b04777f75834f94cb3c47c85321ac479af2d781d0b15a43b5b6fcb8cc
+Description:  Ip6tables core
+
+Package: kmod-nf-ipt
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc)
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 14462
+Filename: kmod-nf-ipt_4.4.14-1_ar71xx.ipk
+Size: 15183
+MD5Sum: b35f2dd186fe79936ae05964ef606336
+SHA256sum: 16bccfea6cc97d710e68b0b5e51017b9d18c9624109067fac59d35c9aaa1efd9
+Description:  Iptables core
+
+Package: kmod-nf-nat
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-nf-conntrack, kmod-nf-ipt
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 10669
+Filename: kmod-nf-nat_4.4.14-1_ar71xx.ipk
+Size: 11470
+MD5Sum: f13ad6db8540a6162f1101f4c10debcb
+SHA256sum: 013e821b0c683cad6382c49817c26893a92cf52ce6985b2a659b974cba885f3b
+Description:  Netfilter NAT
+
+Package: kmod-nls-base
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc)
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 3057
+Filename: kmod-nls-base_4.4.14-1_ar71xx.ipk
+Size: 3784
+MD5Sum: bf15ea65a5777be7269f5625d00e68f9
+SHA256sum: dd3d4b250856801c3179ca6c4cc4869efca764dbebda6ab7b6c7dee9e0586421
+Description:  Kernel module for NLS (Native Language Support)
+
+Package: kmod-ppp
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-lib-crc-ccitt, kmod-slhc
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 19590
+Filename: kmod-ppp_4.4.14-1_ar71xx.ipk
+Size: 20340
+MD5Sum: 1fb405524bc8d2f61c1eec9c2b7ff6a5
+SHA256sum: 8aee586a6b0935d81a247a9d5ada59e17db813529cedc6ee57ee015e10ce5e14
+Description:  Kernel modules for PPP support
+
+Package: kmod-pppoe
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-ppp, kmod-pppox
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 6467
+Filename: kmod-pppoe_4.4.14-1_ar71xx.ipk
+Size: 7320
+MD5Sum: d8770f9abd63bdc58f22398424a0dcd6
+SHA256sum: 2c59d3e374f5f85be13a7ad3690432d636671c2636b32b270013a42ea46047e6
+Description:  Kernel module for PPPoE (PPP over Ethernet) support
+
+Package: kmod-pppox
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-ppp
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 1546
+Filename: kmod-pppox_4.4.14-1_ar71xx.ipk
+Size: 2298
+MD5Sum: 0bc254df2e97abddb86e145d0c47a698
+SHA256sum: 4e2bc049f6226f901314c6ddb5e14a67b31e4ae265e71e4e9050344f2b8962de
+Description:  Kernel helper module for PPPoE and PPTP support
+
+Package: kmod-slhc
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-lib-crc-ccitt
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 3377
+Filename: kmod-slhc_4.4.14-1_ar71xx.ipk
+Size: 4115
+MD5Sum: 93deb9800f2e2dc4b3a96d868f27bff9
+SHA256sum: 8f1a6c081ab422e5a35fc6db1db4b195a07a4adafc297a61bafd0845ba08f68d
+Description:  Serial Line Header Compression
+
+Package: kmod-usb-core
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-nls-base
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 76607
+Filename: kmod-usb-core_4.4.14-1_ar71xx.ipk
+Size: 77159
+MD5Sum: 29c94118ee07001269df27481805a145
+SHA256sum: dc2776b13a2318a66cd277776e892349948334db3c6fb7184736577748d4281f
+Description:  Kernel support for USB
+
+Package: kmod-usb-ohci
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-usb-core
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 19318
+Filename: kmod-usb-ohci_4.4.14-1_ar71xx.ipk
+Size: 20092
+MD5Sum: 6ca155c72bb0b6b6e38f48ca0dba66f1
+SHA256sum: 26da1ec67e0472829cde991bb6a5fde423da6cb7edf18f687d246aabfb0a93d7
+Description:  Kernel support for USB OHCI controllers
+
+Package: kmod-usb2
+Version: 4.4.14-1
+Depends: kernel (=4.4.14-1-4072f9a3d15a074aac0474c6323beddc), kmod-usb-core
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: ar71xx
+Installed-Size: 24269
+Filename: kmod-usb2_4.4.14-1_ar71xx.ipk
+Size: 25015
+MD5Sum: 941ba8b9612f17bd737ce2b7c27fb418
+SHA256sum: df1c62e66755e1618b8e0b4ab8f382020a1bbcab6f816b025ebfec174a893c68
+Description:  Kernel support for USB2 (EHCI) controllers
+
