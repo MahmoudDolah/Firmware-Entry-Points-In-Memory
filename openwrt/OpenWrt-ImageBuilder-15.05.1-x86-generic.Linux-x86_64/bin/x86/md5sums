@@ -1,0 +1,7 @@
+4d91c856956d3af49f92b7f5f0e28a69 *openwrt-15.05.1-x86-generic-Generic-rootfs.tar.gz
+0ffa430efadd7c08b9b6dfa10c06406a *openwrt-15.05.1-x86-generic-combined-ext4.img.gz
+00c9ca1bd69459351fe02017b9b28d45 *openwrt-15.05.1-x86-generic-combined-squashfs.img
+2c90ce7a8fb275375d96a9a9c8dff018 *openwrt-15.05.1-x86-generic-rootfs-ext4.img.gz
+c5528064b43eb92f401f82d81e36ce1b *openwrt-15.05.1-x86-generic-rootfs-squashfs.img
+50b08d6a7fd76639b835a07dae1a77b2 *openwrt-15.05.1-x86-generic-vmlinuz
+8e15ded53f7d1a5ce2fd1a5f5b51a434 *sha256sums

@@ -1,0 +1,10 @@
+Package: kmod-nf-nat
+Version: 3.18.23-1
+Depends: kernel (=3.18.23-1-8a189732cf5968445231f5f1ef240692), kmod-nf-conntrack, kmod-nf-ipt
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: x86
+Installed-Size: 10075
+Description:  Netfilter NAT

@@ -1,0 +1,7 @@
+SHA256(openwrt-15.05.1-x86-generic-Generic-rootfs.tar.gz)= f310b4f3f45dfd6d65e29580819f545c7ac337a3573c9a2efd45715fda64f5bd
+SHA256(openwrt-15.05.1-x86-generic-combined-ext4.img.gz)= 34806eb540bbfb6b91bf00d969bf0d97eef5dc1f0b255ab707c3e5163a04852b
+SHA256(openwrt-15.05.1-x86-generic-combined-squashfs.img)= db7310c136c61c8b79c3ccba3052ff85e4e9474416c6e9efd6006e8351431e97
+SHA256(openwrt-15.05.1-x86-generic-rootfs-ext4.img.gz)= b2c0ac17bbd50401366c3e922a4ffc2359dfc63ce1664e95db78da898891f0b9
+SHA256(openwrt-15.05.1-x86-generic-rootfs-squashfs.img)= 7ac68116e493c3f7717e11d2f3c0a9e43ae287ec626da253b80a0cf4bbd39197
+SHA256(openwrt-15.05.1-x86-generic-vmlinuz)= 6c7595204eed2456bde1542e5196ae9e4a82f359f35c02e3b1f03b10ffeb102c
+SHA256(sha256sums)= e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
