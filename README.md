@@ -1,7 +1,15 @@
 # Firmware-Entry-Points-In-Memory
-A research paper about auto detecting the base address and entry points of firmware in memory
+A research paper about auto detecting the base address and entry points of firmware in memory.
 
-Current References:
+To Do:             
+1) Disassemble compiled Binary - use x86 binary in ```openwrt``` directory      
+    - How: Binary Ninja (preferred), Radare2, objdump
+    
+2) Find out how to determine where placed in memory
+
+3) Create script to automate task
+
+Current References:              
 [1] Attacks on Fitness Trackers Revisited: A Case-Study of Unfit Firmware Security
 https://arxiv.org/pdf/1604.03313.pdf
 
