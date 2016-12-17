@@ -2,10 +2,12 @@
 A research paper about auto detecting the base address and entry points of firmware in memory.
 
 To Do:             
-1) Disassemble compiled Binary - use x86 binary in ```openwrt``` directory      
-    - How: Binary Ninja (preferred), Radare2, objdump
+1) Disassemble compiled Binary                  
+    - Use x86 binary in ```openwrt``` directory      
+    - How: Binary Ninja (preferred), Radare2, objdump, readelf
     
 2) Find out how to determine where placed in memory
+    - Analyze firmware
 
 3) Create script to automate task
 
