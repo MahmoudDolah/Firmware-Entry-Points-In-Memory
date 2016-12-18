@@ -18,7 +18,8 @@
 \thispagestyle{empty}
 
 \subsection*{Abstract}
-Finding the entry points of firmware in memory is a problem that is featured prominently in many embedded systems. It is hard to find out because the method for it is not standardized and, since firmware works under the operating system, it does not follow the same rules that the OS uses. In this paper, we present an approach for automating the process of finding the entry point of firmware in memory. 
+Finding the entry points of firmware in memory is a problem that is featured prominently in many embedded systems. It is hard to find out because the method for it is not standardized and, since firmware works under the operating system, it does not follow the same rules that the OS uses. In this paper, we present an approach for automating the process of finding the entry point of firmware in memory in a file called basefind.py, which was created by Michael Coppola. We test his script against openwrt binaries. By analyzing the contents of a firmware binary, particularly the amount of strings that are referenced by each pointer, we can create a list of potential base addresses.  
+TO DO: EVALUATION AND TAKEAWAY
 
 \section{Introduction}
 
