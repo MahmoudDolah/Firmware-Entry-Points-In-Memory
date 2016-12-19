@@ -1,0 +1,3 @@
+/etc/modules-boot.d/15-libphy
+/etc/modules.d/15-libphy
+/lib/modules/3.18.23/libphy.ko

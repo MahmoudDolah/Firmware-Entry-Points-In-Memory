@@ -1,0 +1,11 @@
+Package: kmod-ptp
+Version: 3.18.23-1
+Depends: kernel (=3.18.23-1-8a189732cf5968445231f5f1ef240692), kmod-pps
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: x86
+Installed-Size: 6160
+Description:  The IEEE 1588 standard defines a method to precisely
+ synchronize distributed clocks over Ethernet networks.
