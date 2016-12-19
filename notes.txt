@@ -21,3 +21,7 @@ Top 20 base address candidates:
 0xfe8000	45
 0x210e3000	45
 0x212dd000	44
+
+
+openwrt-ar71xx-generic-vmlinux-lzma.elf
+-basefind still running
