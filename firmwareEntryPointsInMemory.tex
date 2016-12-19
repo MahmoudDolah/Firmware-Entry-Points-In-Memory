@@ -44,7 +44,11 @@ Heffner\cite{wrt120N2014} and Viehbock\cite{braindump2011} show examples of stat
 Other techniques have been developed to target specific device vulnerabilities, rather than overarching analyses of firmware images. Meier\cite{fitnesstrackers2016} and Cui et al\cite{firmwaremodsattack} focus on the exploitation of firmware updates to deliver malicious code (to fitness trackers and HP printers, respectively), and note a general lacking in the current state of firmware security. Similarly, FIE\cite{fie2013} is a tool developed to find bugs in the MSP430 family of micro controllers, building off of Cadar et al\cite{klee2008} for the purposes of conducting symbolic execution. While these analyses are limited in scope, they all shed light into interesting ways of inspecting firmware that can potentially be applied to a greater and more general range of devices. 
 
 \section{Background}
-OPTIONAL
+Firmware is a type of software that provides control over products and systems. In this paper, the firmware we analyzed is called openwrt, which is piece of firmware for routers. A router is an example of an embedded system. An embedded system is a computer system that acts with a dedicated function within a larger system.               
+
+Firmware is considered difficult to operate on because it acts under the operating system and does not have uniform standards and guidelines. Also, in some cases, firmware represents a security vulnerability because, unlike most modern operating systems, firmware rarely has an automatic mechanism for updating itself\cite{firmwaresecurity2014}. 
+
+The base address is an absolute address that acts as a reference point for other addresses. Finding the base address is important for fully disassembling firmware in order to create a full analysis of a system. 
 
 \section{Design}
 
