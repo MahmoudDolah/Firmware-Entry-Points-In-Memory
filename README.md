@@ -54,3 +54,6 @@ https://www.usenix.org/system/files/conference/usenixsecurity13/sec13-paper_davi
 
 [15] KLEE: Unassisted and Automatic Generation of High-Coverage Tests for Complex Systems Programs
 http://hci.stanford.edu/cstr/reports/2008-03.pdf
+
+[16] ACPI, firmware, and your Security
+http://www.markshuttleworth.com/archives/1332
