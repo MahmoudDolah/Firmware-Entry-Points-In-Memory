@@ -1,0 +1,3 @@
+/lib/modules/3.18.23/8390.ko
+/lib/modules/3.18.23/ne2k-pci.ko
+/etc/modules.d/ne2k-pci
