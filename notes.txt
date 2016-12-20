@@ -25,4 +25,3 @@ Top 20 base address candidates:
 
 openwrt-ar71xx-generic-vmlinux-lzma.elf
 -basefind still running
-4:16pm to 
