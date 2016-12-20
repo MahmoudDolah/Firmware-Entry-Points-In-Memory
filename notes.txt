@@ -1,4 +1,4 @@
-openwrt-ar71xx-generic-nbg460n_550n_550nh-u-boot.bin 
+1) openwrt-ar71xx-generic-nbg460n_550n_550nh-u-boot.bin 
 
 Top 20 base address candidates:
 0xfe0000	259
@@ -21,7 +21,34 @@ Top 20 base address candidates:
 0xfe8000	45
 0x210e3000	45
 0x212dd000	44
+2 hours
 
 
-openwrt-ar71xx-generic-vmlinux-lzma.elf
+2) openwrt-ar71xx-generic-vmlinux-lzma.elf
 -basefind still running
+4:16PM to 10:00 PM
+
+3) openwrt-ar71xx-generic-uImage-lzma.bin
+
+Top 20 base address candidates:
+0x106d000	1
+0x1448000	1
+0x1ed4000	1
+0x2c30000	1
+0x32fd000	1
+0x3da4000	1
+0x43d5000	1
+0x460d000	1
+0x4f47000	1
+0x5999000	1
+0x6634000	1
+0x75b7000	1
+0x8ddb000	1
+0x8f19000	1
+0x9318000	1
+0x93f9000	1
+0x9a9f000	1
+0x9e65000	1
+0xa55b000	1
+0xb01b000	1
+13 hours
