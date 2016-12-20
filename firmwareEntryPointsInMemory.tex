@@ -61,6 +61,13 @@ OPTIONAL
 Place to explain if there is something weird about the result
 
 \section{Limitations and Future Work}
+In this paper, while we only tested ELF files due to the ease of finding the base address of an ELF file, we ran Basefind.py against other types of binary files. However, it is clear that the script only works on ELF files, regardless of the hardware architecture that it was compiled for. 
+
+In the future, we can perform more tests on the rest of the openwrt binaries, instead of just ELF files. The same tests can, also, be performed on binaries that were compiled for other architectures, aside from ARM and MIPS. 
+
+Another future improvement would be to optimized the script to decrease the run time. The average run time was considerably larger than predicted and lead to large setbacks. Also, after examining the results given from Basefind.py after testing it on other types of binary files, it is clear that it only works for ELF files. In the future, we would generalize the script to work on other types of binaries. 
+
+Finally, there are plans to turn this into a some type of module or library that can be integrated into currently existing software. 
 
 \section{Conclusion}
 
