@@ -25,8 +25,26 @@ Top 20 base address candidates:
 
 
 2) openwrt-ar71xx-generic-vmlinux-lzma.elf
--basefind still running
-4:16PM to 10:00 PM
+Top 20 base address candidates:
+0xfef000	3
+0xffd000	3
+0x327af000	2
+0x45a000	1
+0x4da000	1
+0x530000	1
+0x5a6000	1
+0x5ea000	1
+0x648000	1
+0x677000	1
+0x67b000	1
+0x769000	1
+0x7ca000	1
+0xd7a000	1
+0xe1c000	1
+0xff0000	1
+0x1789000	1
+0x19ba000	1
+6pm to 9:40pm next day
 
 3) openwrt-ar71xx-generic-uImage-lzma.bin
 
