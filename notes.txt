@@ -79,3 +79,30 @@ http://stackoverflow.com/questions/18296276/base-address-of-elf
 basically:
 look at Program Headers. the first load address’s VirtAddr should be base addr.
 Or, you could look at Section Headers. Pick an address and subtract its offset. That should be the base address ?????????????
+
+
+4) openwrt-ar71xx-generic-vmlinux.elf
+
+Top 20 base address candidates:
+0x7ceb000	14036
+0x7c6f000	13120
+0x7cde000	13024
+0x7cdb000	13005
+0x7cfc000	12917
+0x7c79000	12670
+0x7c76000	12662
+0x20eff000	8974
+0x20e62000	8779
+0xcb2000	6720
+0x1bc65000	6438
+0x20e01000	6214
+0x20f01000	6202
+0x1fcd1000	6067
+0xfce5000	5846
+0x17c70000	5733
+0x17cf5000	5724
+0x20dea000	5638
+0x13c65000	5545
+0x20dc0000	5533
+11 hours
+readelf base address: 0x8005f000
