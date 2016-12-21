@@ -52,6 +52,8 @@ Firmware is considered difficult to operate on because it acts under the operati
 
 The base address is an absolute address that acts as a reference point for other addresses. Finding the base address is important for fully disassembling firmware in order to create a full analysis of a system. 
 
+OpenWrt is an embedded, Linux based, operating system that is used to route network traffic. It can be run on many different types of hardware architectures, such as ARM and MIPS. It is an open source project that has been under active development for over twelve years. The reason that OpenWrt was chosen for this paper is because, similar to the GNU Coreutils, it has been thoroughly tested and analyzed by other developers. Because of this, we can be confident that the results that we get from experimentation will not come from errors associated with the code. 
+
 \section{Design}
 Basefind.py, created by Coppola\cite{cloudscale2013}, is a relatively small python script that was successfully used to located the entry point of a firmware binary. As mentioned in Coppola's lecture, Basefind.py begins by locating all strings within a given executable. It then does another pass over the file, this time to locate every double word, which it will then consider as a potential base address. For each potential address, Basefind.py attempts to locate the number of strings referenced. The address that references the most strings is meant to be considered as the base address, but Basefind.py will output the 20 highest ranked addresses in case the first is incorrect. 
 
