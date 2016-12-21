@@ -46,6 +46,8 @@ Top 20 base address candidates:
 0x19ba000	1
 6pm to 9:40pm next day
 
+readelf base address: 80050000
+
 3) openwrt-ar71xx-generic-uImage-lzma.bin
 
 Top 20 base address candidates:
@@ -70,3 +72,10 @@ Top 20 base address candidates:
 0xa55b000	1
 0xb01b000	1
 13 hours
+
+readelf find base address
+http://stackoverflow.com/questions/18296276/base-address-of-elf
+
+basically:
+look at Program Headers. the first load address’s VirtAddr should be base addr.
+Or, you could look at Section Headers. Pick an address and subtract its offset. That should be the base address ?????????????
