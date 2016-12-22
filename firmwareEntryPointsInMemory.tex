@@ -18,10 +18,10 @@
 \thispagestyle{empty}
 
 \subsection*{Abstract}
-Finding the entry points of firmware in memory is a problem that is featured prominently in many embedded systems. It is hard to find out because the method for it is not standardized and, since firmware works under the operating system, it does not follow the same rules that the OS uses. Also, very few tools exist that can find the entry points for any binary. In this paper, we present a static analysis approach for automating the process of finding the entry point of firmware in memory with a script called Basefind.py, which was created by Michael Coppola. We test his script against OpenWrt binaries compiled to MIPS. By analyzing the contents of a firmware binary, particularly the amount of strings that are referenced by each pointer, we can create a list of potential base addresses and find the entry point. By running Basefind.py against OpenWrt binaries, we will be able to tell if Coppola's technique will work as a generic tool to find the firmware entrypoints in memory. While Coppola's Basefind.py worked for his purposes, in this paper, we find that it appears to lack the results to be a universal tool and would require many tweaks to meet the standards of the industry. 
+Finding the entry points of firmware in memory is a problem that is featured prominently in many embedded systems. It is hard to find out because the method for it is not standardized and, since firmware works under the operating system, it does not follow the same rules that the OS uses. Also, very few tools exist that can find the entry points for any binary. In this paper, we present a static analysis approach for automating the process of finding the entry point of firmware in memory with a script called Basefind.py, which was created by Michael Coppola. We test his script against OpenWrt binaries compiled to MIPS. By analyzing the contents of a firmware binary, particularly the amount of strings that are referenced by each pointer, we can create a list of potential base addresses and find the entry point. By running Basefind.py against OpenWrt binaries, we will be able to tell if Coppola's technique will work as a generic tool to find the firmware entry points in memory. While Coppola's Basefind.py worked for his purposes, in this paper, we find that it appears to lack the results to be a universal tool and would require many tweaks to meet the standards of the industry. 
 
 \section{Introduction}
-Unlike other areas of modern consumer computing, embedded systems suffer from a glaring lack of standardization. When shopping for a home pc or smartphone, for example, one could be relatively confident that most of the devices presented to them share similarities in hardware or software implementation. An analysis of any of these devices may provide the consumer with an intuition about other devices in their category. The same, unfortunatly, could not be said for a device running an embedded system or system on a chip. Because of the variety in software and especially hardware implementation techniques, an analysis of, say, a router, fitness tracker, or bluetooth dongle, will often yield little useful information for any kind of large scale study. Whats worse, the analysis techniques and tools used for any particular embedded system often cannot be carried over to another, forcing the analyst to redo, usually from scratch, their work.
+Unlike other areas of modern consumer computing, embedded systems suffer from a glaring lack of standardization. When shopping for a home pc or smartphone, for example, one could be relatively confident that most of the devices presented to them share similarities in hardware or software implementation. An analysis of any of these devices may provide the consumer with an intuition about other devices in their category. The same, unfortunately, could not be said for a device running an embedded system or system on a chip. Because of the variety in software and especially hardware implementation techniques, an analysis of, say, a router, fitness tracker, or bluetooth dongle, will often yield little useful information for any kind of large scale study. Whats worse, the analysis techniques and tools used for any particular embedded system often cannot be carried over to another, forcing the analyst to redo, usually from scratch, their work.
 
 When conducting an analysis of a firmware image, we often start with trying to find the base address of the binary. Because no tools (or even methods) exist that apply to a wide range of firmware binaries, and considering it is quite possible that information on the architecture of the device is sparse or poorly documented, researches often have to rely on manual, static analysis. This, in part, also has to do with the fact that quite often the source hardware isn't available, so reliable dynamic analysis is usually out of the question. When attempting to do an analysis on a large body of firmware binaries, like for instance the Open Wrt library, it would almost be impossible to expect a researcher to obtain, and run some kind of dynamic analysis on, every single phsysical device.
 
@@ -53,6 +53,8 @@ The base address is an absolute address that acts as a reference point for other
 
 OpenWrt is an embedded, Linux based, operating system that is used to route network traffic. It can be run on many different types of hardware architectures, such as ARM and MIPS. It is an open source project that has been under active development for over twelve years. The reason that OpenWrt was chosen for this paper is because, similar to the GNU Coreutils, it has been thoroughly tested and analyzed by other developers. Because of this, we can be confident that the results that we get from experimentation will not come from errors associated with the code. 
 
+Static program analysis is the analysis of software that is performed without actually executing the program. The information gained from static program analysis is useful and it can vary from highlighting potential code errors to formal methods that mathematically prove properties about a given program to ensure that its behaviour matches its specifications.
+
 \section{Design}
 Basefind.py, created by Coppola\cite{cloudscale2013}, is a relatively small python script that was successfully used to located the entry point of a firmware binary. As mentioned in Coppola's lecture, Basefind.py begins by locating all strings within a given executable. It then does another pass over the file, this time to locate every double word, which it will then consider as a potential base address. For each potential address, Basefind.py attempts to locate the number of strings referenced. The address that references the most strings is meant to be considered as the base address, but Basefind.py will output the 20 highest ranked addresses in case the first is incorrect. 
 
@@ -64,18 +66,149 @@ Coppola\cite{cloudscale2013} originally tested Basefind.py on an arm binary. Our
 Each binary was scanned with Basefind.py. For binaries compiled to ELF, the resulting base addresses were checked against a readelf decompilation. Running Basefind.py on non-ELF binaries was still useful to evaluate the runtime of Basefind.py.
 
 \section{Evaluation}
-The following table shows the results of running Basefind.py on our selected files.
+The following tables show the results of running Basefind.py on our selected files.
+The first table shows the file that was tested and general information about it. The table directly underneath it shows the results from Basefind.py. 
 
-Table here: File name, basefind results, size of file, time to execute, readelf base address if exists
+\begin{center}
+    \begin{tabular}{| c | p{3cm} |}
+        \hline
+        File Name & ar71xxnboot.bin\\ \hline
+        File Size & 1 MB \\ \hline
+        Execution Time & 2.3 hrs \\ \hline
+        Base Address (if exists) & Cannot Get\\ \hline
+    \end{tabular}
+    
+    \begin{tabular}{| c | p{3cm} |}
+        \hline
+        Candidates & No. Pointers \\ \hline
+        0xfe0000 & 259 \\ \hline
+        0x1fe0000 & 218 \\ \hline
+        0xfde000 & 217 \\ \hline
+        0x1fde000 & 203\\ \hline
+        0x210e0000 & 173\\ \hline
+        0x210dd000 & 167\\ \hline
+        0x2125d000 & 134\\ \hline
+        0x21260000 & 134\\ \hline
+        0x211e1000 & 67\\ \hline
+        0x211e4000 & 67\\ \hline
+        0xfdd000 & 63\\ \hline
+        0x211e0000 & 60\\ \hline
+        0x211dd000 & 59\\ \hline
+        0x217e5000 & 58\\ \hline
+        0x21861000 & 54\\ \hline
+        0x217e8000 & 50\\ \hline
+        0x21864000 & 46\\ \hline
+        0xfe8000 & 45\\ \hline
+        0x210e3000 & 45\\ \hline
+        0x212dd000 & 4\\ \hline
+    \end{tabular}
+        
+    \begin{tabular}{| c | p{3cm} |}
+        \hline
+        File Name & vmlinuxlzma.elf\\ \hline
+        File Size & 2 MB \\ \hline
+        Execution Time & 22.8 hrs \\ \hline
+        Base Address (if exists) & 0x80050000\\ \hline
+    \end{tabular}
+    
+    \begin{tabular}{| c | p{3cm} |}
+        \hline
+        Candidates & No. Pointers \\ \hline
+        0xfef000 & 3\\ \hline
+        0xffd000 & 3\\ \hline
+        0x327af000 & 2\\ \hline
+        0x45a000 & 1\\ \hline
+        0x4da000 & 1\\ \hline
+        0x530000 & 1\\ \hline
+        0x5a6000 & 1\\ \hline
+        0x5ea000 & 1\\ \hline
+        0x648000 & 1\\ \hline
+        0x677000 & 1\\ \hline
+        0x67b000 & 1\\ \hline
+        0x769000 & 1\\ \hline
+        0x7ca000 & 1\\ \hline
+        0xd7a000 & 1\\ \hline
+        0xe1c000 & 1\\ \hline
+        0xff0000 & 1\\ \hline
+        0x1789000 & 1\\ \hline
+        0x19ba000 & 1\\ \hline
+    \end{tabular}
 
-The results from running Basefind.py on our selected files were less useful than we originally expected. Notice that for most of the files, Basefind.py found candidate base addresses that referenced at most 3 strings. The results for openwrt\-ar71xx\-generic\-nbg460n\_550n\_550nh\-u\-boot.bin, however, more closely resembled Coppola's results, but because that file was not in ELF format we were not able to easily verify the validity of any of the candidate addresses. 
+    \begin{tabular}{| c | p{3cm} |}
+        \hline
+        File Name & uImagelzma.bin\\ \hline
+        File Size & 2 MB \\ \hline
+        Execution Time & 13.4 hrs \\ \hline
+        Base Address (if exists) & Cannot Get \\ \hline
+    \end{tabular}
+    
+    \begin{tabular}{| c | p{3cm} |}
+        \hline
+        Candidates & No. Pointers \\ \hline
+        0x106d000 & 1\\ \hline
+        0x1448000 & 1\\ \hline
+        0x1ed4000 & 1\\ \hline
+        0x2c30000 & 1\\ \hline
+        0x32fd000 & 1\\ \hline
+        0x3da4000 & 1\\ \hline
+        0x43d5000 & 1\\ \hline
+        0x460d000 & 1\\ \hline
+        0x4f47000 & 1\\ \hline
+        0x5999000 & 1\\ \hline
+        0x6634000 & 1\\ \hline
+        0x75b7000 & 1\\ \hline
+        0x8ddb000 & 1\\ \hline
+        0x8f19000 & 1\\ \hline
+        0x9318000 & 1\\ \hline
+        0x93f9000 & 1\\ \hline
+        0x9a9f000 & 1\\ \hline
+        0x9e65000 & 1\\ \hline
+        0xa55b000 & 1\\ \hline
+        0xb01b000 & 1\\ \hline
+    \end{tabular}
+        
+    \begin{tabular}{| c | p{3cm} |}
+        \hline
+        File Name & vmlinux.elf\\ \hline
+        File Size & 5 MB \\ \hline
+        Execution Time & 11.3 hrs \\ \hline
+        Base Address (if exists) &  0x8005f000\\ \hline
+    \end{tabular}
+    
+    \begin{tabular}{| c | p{3cm} |}
+        \hline
+        Candidates & No. Pointers\\ \hline
+        0x7ceb000 & 14036\\ \hline
+        0x7c6f000 & 13120\\ \hline
+        0x7cde000 & 13024\\ \hline
+        0x7cdb000 & 13005\\ \hline
+        0x7cfc000 & 12917\\ \hline
+        0x7c79000 & 12670\\ \hline
+        0x7c76000 & 12662\\ \hline
+        0x20eff000 & 8974\\ \hline
+        0x20e62000 & 8779\\ \hline
+        0xcb2000 & 6720\\ \hline
+        0x1bc65000 & 6438\\ \hline
+        0x20e01000 & 6214\\ \hline
+        0x20f01000 & 6202\\ \hline
+        0x1fcd1000 & 6067\\ \hline
+        0xfce5000 & 5846\\ \hline
+        0x17c70000 & 5733\\ \hline
+        0x17cf5000 & 5724\\ \hline
+        0x20dea000 & 5638\\ \hline
+        0x13c65000 & 5545\\ \hline
+        0x20dc0000 & 553\\ \hline
+    \end{tabular}
+\end{center}
 
-The running time of Basefind.py is also of relative concern. While running Basefind.py on openwrt\-ar71xx\-generic\-nbg460n\_550n\_550nh\-u\-boot.bin took only 2 hours, executing it on all other files took over 10 hours, with openwrt\-ar71xx\-generic\-vmlinux\-lzma.elf taking almost 28 hours. We speculated originally that Basefind.py could be incorperated into other static analysis tools as an intial step in their process, but its slow running times would make it difficult for large scale analysis. 
+The results from running Basefind.py on our selected files were less useful than we originally expected. Notice that for most of the files, Basefind.py found candidate base addresses that referenced at most 3 strings. The results for ar71xxnboot.bin, however, more closely resembled Coppola's results, but because that file was not in ELF format we were not able to easily verify the validity of any of the candidate addresses. 
 
-The final step of our evaluation of Basefind.py was to test the validity of its results. In the case of openwrt\-ar71xx\-generic\-vmlinux\-lzma.elf, analysing the file with readelf yielded different results for its potential base address. Reasons as to why this may be the case are discussed below.
+The running time of Basefind.py is also of relative concern. While running Basefind.py on ar71xxnboot.bin took only 2 hours, executing it on all other files took over 10 hours, with vmlinuxlzma.elf taking almost 28 hours. We speculated originally that Basefind.py could be incorporated into other static analysis tools as an intial step in their process, but its slow running times would make it difficult for large scale analysis. 
+
+The final step of our evaluation of Basefind.py was to test the validity of its results. In the case of vmlinuxlzma.elf, analysing the file with readelf yielded different results for its potential base address. Unfortunately, Coppola's script was unable to determine the actual base address for any of the tests. 
 
 \section{Discussion}
-The results from our analysis with Basefind.py show unfortunate shortcomings when using it as an approach to determining the entrypoints of firmware images. While the runtime of Basefind.py is worrying, our true concern comes from the apparent inaccuracy of its results. We believe this may be because Basefind.py was created for determining the base address of a specific ARM binary, while we tested it on binaries of other architectures. Basefind.py may be relying on specific structures or artifacts found within binaries for ARM that simply do not exist in other formats. Because Basefind.py was successful in Coppola's case, it may be possible to generalize the approach.
+The results from our analysis with Basefind.py show unfortunate shortcomings when using it as an approach to determining the entry points of firmware images. While the runtime of Basefind.py is worrying, our true concern comes from the apparent inaccuracy of its results. We believe this may be because Basefind.py was created for determining the base address of a specific ARM binary, while we tested it on binaries of other architectures. Basefind.py may be relying on specific structures or artifacts found within binaries for ARM that simply do not exist in other formats. Because Basefind.py was successful in Coppola's case, it may be possible to generalize the approach.
 
 \section{Limitations and Future Work}
 In this paper, while we only tested ELF files due to the ease of finding the base address of an ELF file, we ran Basefind.py against other types of binary files. However, it is clear that the script only works on ELF files, regardless of the hardware architecture that it was compiled for. 
@@ -87,6 +220,7 @@ Another future improvement would be to optimized the script to decrease the run 
 Finally, there are plans to turn this into a some type of module or library that can be integrated into currently existing software. It could be turned into a python package that could be called within other static analysis programs. 
 
 \section{Conclusion}
+Finding the entry points of firmware in memory is a very difficult problem and there lacks a simple universal solution. Coppola's Basefind.py is only able to find the base address for ARM binaries and, despite the method being very similar for other binary types and hardware architectures, it proved to be poor solution as a general tool which is sorely needed by the industry.
 
 \bibliographystyle{abbrv}
 \bibliography{research}
