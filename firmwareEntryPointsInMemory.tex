@@ -107,7 +107,7 @@ The first table shows the file that was tested and general information about it.
         \hline
         File Name & vmlinuxlzma.elf\\ \hline
         File Size & 2 MB \\ \hline
-        Execution Time & 22.8 hrs \\ \hline
+        Execution Time & 27.5 hrs \\ \hline
         Base Address (if exists) & 0x80050000\\ \hline
     \end{tabular}
     
@@ -201,11 +201,11 @@ The first table shows the file that was tested and general information about it.
     \end{tabular}
 \end{center}
 
-The results from running Basefind.py on our selected files were less useful than we originally expected. Notice that for most of the files, Basefind.py found candidate base addresses that referenced at most 3 strings. The results for ar71xxnboot.bin, however, more closely resembled Coppola's results, but because that file was not in ELF format we were not able to easily verify the validity of any of the candidate addresses. 
+The results from running Basefind.py on our selected files were less useful than we originally expected. Notice that for two of the files, Basefind.py found candidate base addresses that referenced at most 3 strings. The results for ar71xxnboot.bin, however, more closely resembled Coppola's results, but because that file was not in ELF format we were not able to easily verify the validity of any of the candidate addresses. 
 
 The running time of Basefind.py is also of relative concern. While running Basefind.py on ar71xxnboot.bin took only 2 hours, executing it on all other files took over 10 hours, with vmlinuxlzma.elf taking almost 28 hours. We speculated originally that Basefind.py could be incorporated into other static analysis tools as an intial step in their process, but its slow running times would make it difficult for large scale analysis. 
 
-The final step of our evaluation of Basefind.py was to test the validity of its results. In the case of vmlinuxlzma.elf, analysing the file with readelf yielded different results for its potential base address. Unfortunately, Coppola's script was unable to determine the actual base address for any of the tests. 
+The final step of our evaluation of Basefind.py was to test the validity of its results. In the cases of vmlinuxlzma.elf and vmlinux.elf, analysing the files with readelf yielded different results for their potential base addresses.  
 
 \section{Discussion}
 The results from our analysis with Basefind.py show unfortunate shortcomings when using it as an approach to determining the entry points of firmware images. While the runtime of Basefind.py is worrying, our true concern comes from the apparent inaccuracy of its results. We believe this may be because Basefind.py was created for determining the base address of a specific ARM binary, while we tested it on binaries of other architectures. Basefind.py may be relying on specific structures or artifacts found within binaries for ARM that simply do not exist in other formats. Because Basefind.py was successful in Coppola's case, it may be possible to generalize the approach.
