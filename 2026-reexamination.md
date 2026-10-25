@@ -4,7 +4,11 @@ Ten years on, with modern tooling (Python 3, `numpy`, `binwalk` v3, `radare2`, a
 agentic RE CLI called `rea`) sitting a `pip`/`cargo install` away, this is a technical
 re-test of the paper's central claims against the *exact* four files logged in `notes.txt`:
 `openwrt-ar71xx-generic-nbg460n_550n_550nh-u-boot.bin`, `vmlinux-lzma.elf`,
-`uImage-lzma.bin`, and `vmlinux.elf`, all under `openwrt/openwrt-mips-ar71xx/bin/ar71xx/`.
+`uImage-lzma.bin`, and `vmlinux.elf`, all under `openwrt/openwrt-mips-ar71xx/bin/ar71xx/`
+(§1–§6), extended in §7 to a file the paper never tested: the x86 kernel image under
+`openwrt/OpenWrt-ImageBuilder-15.05.1-x86-generic.Linux-x86_64/bin/x86/`. (The third
+directory in `openwrt/`, `openwrt-generic-x86/`, turns out to be just an extracted
+root filesystem — no kernel or bootloader binary in it — so it isn't part of this test.)
 
 Headline: the paper's *data* holds up better than its *diagnosis*. The numbers in
 `notes.txt` and the paper's tables are almost entirely reproducible byte-for-byte. But the
@@ -185,15 +189,87 @@ number (`0x80064f00`) that isn't what's being reported.
 ## What this changes about the paper's Conclusion
 
 The Conclusion's core claim — that `basefind.py` doesn't generalize past Coppola's original
-ARM binary — still holds, and is now better-evidenced than before. But "poor solution as a
-general tool" undersells what's actually recoverable here: two of the four formats have a
-trivial, deterministic answer available already (uImage headers, ELF program headers); a
-third has a strong deterministic lead available via direct disassembly; only the fully
-compressed payload is genuinely hard, and it's hard for a specific, provable reason
-(near-zero string signal) rather than an architectural one. A revised Future Work could say,
+ARM binary — needs revising, not just re-evidencing. The paper frames the failure as
+architectural ("poor solution as a general tool," attributed to ARM-specific structures
+"that simply do not exist" elsewhere). §7's x86 result directly contradicts that: the same
+technique, unmodified, ranks the correct answer **#1** out of 633,000 candidates on an
+uncompressed x86 kernel — a third architecture, neither ARM nor MIPS. The real fault line
+running through all three architectures tested (ARM, MIPS, x86) is **compression, not
+instruction set**: every compressed payload tested (MIPS `vmlinux-lzma.elf`, MIPS
+`uImage-lzma.bin`, x86 `vmlinuz`) starves the string-correlation signal to near zero;
+every uncompressed, string-rich file tested either works outright (x86) or at least
+registers a nonzero signal (MIPS `vmlinux.elf`, albeit a weak one).
+
+That reframes what's actually recoverable: two of the original four formats have a trivial,
+deterministic answer already available (uImage headers, ELF program headers); a third has a
+strong deterministic lead via direct disassembly; the x86 case shows the heuristic itself
+can be excellent, not just a last resort, when given uncompressed input. Only genuinely
+compressed payloads are hard, and they're hard for a specific, provable reason (near-zero
+string signal) rather than an architectural one. A revised Future Work could say,
 concretely: detect container format first (uImage/ELF/compressed) and only fall back to
-statistical scanning — with the loop reformulated — when no header is present and the payload
-isn't compressed.
+statistical scanning — with the loop reformulated, and using the pointer addressing
+convention the compiled code actually uses (§7's physical-vs-virtual comparison shows this
+matters a great deal) — when no header is present and the payload isn't compressed.
+
+## 7. A third architecture, not in the original paper: x86 overturns the "it's an architecture thing" theory
+
+The paper only ever tested ARM (Coppola's original) and MIPS (ar71xx). The repo's other
+OpenWrt build — `OpenWrt-ImageBuilder-15.05.1-x86-generic.Linux-x86_64/bin/x86/openwrt-15.05.1-x86-generic-vmlinuz`,
+a real x86 Linux kernel image — gives a third, cleanly independent data point, and it
+changes the conclusion.
+
+**Ground truth, cross-confirmed from two independent sources.** `vmlinuz` is a standard
+bzImage: a small real-mode/protected-mode "setup" stub followed by a compressed kernel body
+(`binwalk` finds an XZ stream at offset `0x3C62`). Parsing the documented boot header
+(`Documentation/x86/boot.rst` field offsets, confirmed via the `0xAA55` boot signature and
+`"HdrS"` magic) gives `pref_address = 0x01000000` — the one true load address, since
+`relocatable_kernel = 0`. Carving out and decompressing the XZ stream yields a full ELF
+(`ELF 32-bit LSB, Intel 80386, stripped`), and `readelf` independently reports
+`PhysAddr = 0x01000000`, `VirtAddr = 0xc1000000` (the standard 3G/1G split,
+`0xC0000000 + physical`) for the first `LOAD` segment, with entry point `0x01000000` — an
+exact match to the header field, from a completely different parsing path. (The header's
+*other* address field, `code32_start = 0x00100000`, is a third, legitimately different
+number — where the setup stub itself runs, 1MB, before it decompresses and jumps to the
+real kernel at 16MB. Three different, all-correct "address" fields in one file is a sharper
+illustration of the base-vs-entry-point conflation in §6 than the MIPS case gave.)
+
+**basefind.py was re-run the same way** (faithful port, cross-validated against the fast
+reformulation on a 300-base sample — exact match for both files, same as the MIPS cases):
+
+| File | strings | distinct pointers | score at true base | rank | nonzero candidates |
+|---|---|---|---|---|---|
+| `vmlinuz` (full bzImage, mostly compressed) | 58 | 612,240 | 0 (at `code32_start=0x00100000`) | never appears | 8,209 |
+| decompressed kernel ELF, **virtual-address convention** (`0xc1000000 − 0x1000 = 0xc0fff000`) | 19,595 | 584,093 | **11,399** | **#1** | 632,989 |
+| decompressed kernel ELF, physical-address convention (`0x01000000 − 0x1000 = 0x00fff000`) | 19,595 | 584,093 | 18 | 55,463rd | 632,989 |
+
+Two things this settles:
+
+- **The compressed `vmlinuz` result is the same story as the MIPS compressed files** (near-zero
+  strings → zero signal at the true address), now confirmed on a third architecture. This is
+  the strongest evidence yet that compression, not CPU architecture, is the actual
+  determining factor.
+- **The uncompressed x86 kernel is the opposite of the MIPS result — and directly falsifies
+  the paper's hypothesis.** The paper's Discussion guessed `basefind.py` "may be relying on
+  specific structures ... found within binaries for ARM that simply do not exist" in other
+  architectures. Here, on x86 — neither ARM nor MIPS — the technique works about as well as
+  it possibly could: the true base isn't just in the top 20, it's **rank #1** by a wide
+  margin (11,399 vs. the next-best candidate's 5,074), out of nearly 633,000 candidates that
+  scored something. Architecture isn't the variable that matters; whether the input is
+  compressed is. The MIPS kernel's poor showing (§3) is a property of that specific
+  uncompressed-but-still-weak-signal binary, not of "MIPS" as a category — x86 shows an
+  uncompressed kernel absolutely can produce a dominant, unambiguous top-1 result.
+- **Addressing convention matters a lot, concretely.** Scoring the *same* correct kernel
+  against the wrong (but equally plausible-looking) address convention — physical instead of
+  virtual — drops the result from rank #1 with a dominant score to rank 55,463rd with a score
+  of 18. The compiled kernel's embedded pointers are virtual addresses (as expected for code
+  written to run post-paging), so that's the convention that has to be used; get it wrong and
+  a technique that actually works looks like it's failing.
+
+Algorithmic note, same reformulation as §2, same proof of equivalence: `vmlinuz` sped up
+~16,949× in operation count (0.29s vs. an untested but clearly multi-hour naive-loop
+projection); the decompressed ELF's reformulated run took 80.8s (only a ~50× operation-count
+reduction, since its string and pointer counts are closer in magnitude — the same pattern
+seen with `vmlinux.elf` in §2).
 
 ## Tooling used
 
@@ -204,7 +280,9 @@ isn't compressed.
   via `crates.io`, not `pip`).
 - `radare2` 6.2.4, extracted from the official `.deb` with `dpkg-deb -x` (no root available in
   this environment; this avoids needing `sudo apt install`).
-- `readelf`/`objdump`/`file` — already present.
+- `readelf`/`objdump`/`file`/`xz` — already present. `xz -d` carved the compressed kernel
+  body out of the x86 `vmlinuz` (binwalk located the stream offset; the stream itself is
+  self-delimiting) for the §7 comparison.
 - `rea` (agentic RE CLI, installed earlier this session) — `extract-firmware` is wired for
   this exact use case but needs an external `unblob` binary not present here; noted, not
   pursued.
